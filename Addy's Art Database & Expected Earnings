@@ -1,0 +1,25 @@
+--Create a database for art sales.
+CREATE TABLE AddysArt (id INTEGER PRIMARY KEY, material TEXT, style TEXT, price INTEGER, effort INTEGER); 
+
+--Add items available to sell.
+INSERT INTO AddysArt VALUES (100, "CardBoard", "Paint", 5, 3);
+INSERT INTO AddysArt VALUES (101, "CardBoard", "Marker", 3, 4);
+INSERT INTO AddysArt VALUES (102, "CardBoard", "Crayon", 6, 4);
+INSERT INTO AddysArt VALUES (103, "CardBoard", "Colored Pencil", 3, 3);
+INSERT INTO AddysArt VALUES (104, "Paper", "Paint", 5, 3);
+INSERT INTO AddysArt VALUES (105, "Paper", "Marker", 3, 4);
+INSERT INTO AddysArt VALUES (107, "Paper", "Crayon", 6, 4);
+INSERT INTO AddysArt VALUES (108, "Paper", "Colored Pencil", 3, 3);
+INSERT INTO AddysArt VALUES (109, "String", "Beads", 4, 2);
+INSERT INTO AddysArt VALUES (110, "String", "Noodles", 3, 2);
+INSERT INTO AddysArt VALUES (111, "String", "popcorn", 6, 5);
+INSERT INTO AddysArt VALUES (112, "String", "Charms", 4, 3);
+INSERT INTO AddysArt VALUES (113, "Pipe Clearner", "Beads", 5, 2);
+INSERT INTO AddysArt VALUES (114, "Pipe Cleaner", "Noodles", 1, 1);
+INSERT INTO AddysArt VALUES (115, "Pipe Cleaner", "Charms", 6, 2);
+
+--Show all items available from highest price to lowest price. 
+Select * FROM AddysArt ORDER BY price DESC;
+
+--Show the total earned if all items are sold. 
+Select SUM(price) "Total Earned" FROM AddysArt;
