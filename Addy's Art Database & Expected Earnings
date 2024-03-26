@@ -22,4 +22,5 @@ INSERT INTO AddysArt VALUES (115, "Pipe Cleaner", "Charms", 6, 2);
 Select * FROM AddysArt ORDER BY price DESC;
 
 --Show the total earned if all items are sold. 
-Select SUM(price) "Total Earned" FROM AddysArt;
+Select SUM(price) "Total Earned" 
+FROM AddysArt;
