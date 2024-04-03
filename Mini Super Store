@@ -1,5 +1,5 @@
 #BuildTable
-CREATE TABLE superstore (
+CREATE TABLE super_store (
     item_id INTEGER PRIMARY KEY,
     item_name TEXT,
     category TEXT,
@@ -9,7 +9,7 @@ CREATE TABLE superstore (
 );
 
 #GiveTableSomeData
-INSERT INTO superstore (item_id, item_name, category, price, stock_quantity, average_rating)
+INSERT INTO super_store (item_id, item_name, category, price, stock_quantity, average_rating)
 VALUES
     (1, 'Stainless Steel Cookware Set', 'Kitchen Supplies', 89.99, 50, 4.6),
     (2, 'Memory Foam Mattress', 'Furnishings', 499.99, 30, 4.8),
@@ -27,24 +27,24 @@ VALUES
     (14, 'Cutlery Set', 'Kitchen Supplies', 34.50, 40, 4.4),
     (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
 
-#Queries
+#MakeQueries
 Select sum(price) as 'price', item_name as 'item'
-From superstore
+From super_store
 Group by item_name
 Order by price desc;
 
 Select max(price) as 'price', item_name as 'item'
-From superstore
+From super_store
 Group by item_name
 Order by price desc;
 
 Select min(price) as 'minumum', item_name as 'item'
-From superstore
+From super_store
 Where category = 'Kitchen Supplies'
 Group by item_name;
 
 Select sum(stock_quantity) as 'total items', item_name as 'item'
-From superstore
+From super_store
 Where category = 'Furnishings'
 Group by item_name;
 
