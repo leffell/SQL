@@ -1,0 +1,65 @@
+-- Using SQLiteSudio to query a database with multiple tables in it to quantify statistics about customer and order data. 
+
+-- To get an idea of the data in each table: 
+SELECT * FROM Get_Data.customers LIMIT 20;
+SELECT * FROM Get_Data.JanSales LIMIT 20;
+
+-- When selecting the orderID column to review the data that may need to be cleaned up. 
+SELECT * FROM Get_Data.customers;
+
+-- To clean up the OrderId Column, I will be using:
+-- WHERE length(order_id) = 6
+-- AND order_id <> 'Order ID'
+
+--Show customer account numbers for all orders placed in February.
+SELECT distinct acctnum
+FROM Get_Data.customers cust
+INNER JOIN Get_Data.FebSales Feb
+ON cust.order_id=FEB.orderid
+WHERE length(orderid) = 6
+AND orderid <> 'Order ID';
+
+-- How many customers ordered more than two items in February?
+SELECT
+count(distinct cust.acctnum)
+count, avg(quantity*price) average
+FROM Get_Data.FebSales Feb
+LEFT JOIN Get_Data.customers cust
+ON FEB.orderid=cust.order_id
+WHERE Feb.Quantity>2
+AND length(orderid) = 6
+AND orderid <> 'Order ID';
+
+-- Which product was the cheapest one sold in January, and what was the price?
+Select Distinct Product, min(price) Price
+From Get_Data.JanSales jan
+Group By product, price
+Order By price ASC LIMIT 1;
+-- OR
+SELECT distinct Product, Price
+FROM Get_Data.JanSales
+WHERE price in (SELECT min(price) FROM Get_Data.JanSales);
+
+-- What is the total revenue for each product sold in January?
+Select product, round(sum(quantity)*price, 2) as total_revenue
+From Get_Data.JanSales
+Group By product;
+
+-- Which products were sold in February at 548 Lincoln St, Seattle, WA 98101,
+-- how many of each were sold, and what was the total revenue?
+Select product, sum(quantity), round(sum(quantity)*price, 2) as total_revenue
+From Get_Data.FebSales
+Where location = '548 Lincoln St, Seattle, WA 98101'
+Group By product;
+
+-- How many customers ordered more than 2 products at a time in February, and 
+-- what was the average amount spent for those customers?
+Select Count(Distinct cust.acctnum) customers, round(avg(quantity*price),2) average_spent
+From Get_Data.FebSales feb
+Left Join Get_Data.customers cust
+On feb.orderID = cust.order_id
+Where Feb.Quantity>2
+And length(orderid) = 6
+And orderid <> 'Order ID';
+
+
