@@ -62,4 +62,11 @@ Where Feb.Quantity>2
 And length(orderid) = 6
 And orderid <> 'Order ID';
 
+-- List all the products sold in Los Angeles in February, and include how many of each were sold.
+Select Product, SUM(quantity)
+From Get_Data.FebSales 
+Where location Like '%Los Angeles%'
+Group By Product;
+
+
 
