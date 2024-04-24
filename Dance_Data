@@ -41,3 +41,19 @@ Select track_name, artist_name, popularity
 From Get_Data.spotifydata
 Order by popularity desc
 Limit 10;
+
+-- Using CTE, Calculate the average popularity for the artists in the Spotify data table. 
+-- Then, for every artist with an average popularity of 90 or above, 
+-- show their name, their average popularity, and label them as a “Top Star”.
+With tempTable As (
+Select s.artist_name,
+AVG(s.popularity) AS average_popularity
+From SpotifyData s 
+Group by s.artist_name
+)
+Select  artist_name,
+        average_popularity,
+        'Top Star' AS tag
+From tempTable
+Where average_popularity>=90;
+ 
