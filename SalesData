@@ -68,5 +68,41 @@ From Get_Data.FebSales
 Where location Like '%Los Angeles%'
 Group By Product;
 
+-- Which locations in New York received at least 3 orders in January, 
+-- and how many orders did they each receive
+SELECT distinct location, count(orderID) total_orders
+From Get_Data.JanSales
+Where location LIKE '%NY%'
+And length(orderid) = 6 
+And orderid <> 'Order ID'
+Group By location
+Having count(orderID) > 2;
 
+-- How many of each type of headphone were sold in February?
+Select Product, Sum(Quantity) as quantity
+From Get_Data.FebSales 
+Where Product like '%Headphones%'
+Group By Product;
 
+--What was the average amount spent per account in February? 
+Select Round(Avg(quantity*price), 2) As average_spent
+From Get_Data.FebSales Feb
+Left Join Get_Data.customers cust
+On FEB.orderid=cust.order_id
+Where length(orderid) = 6 
+And orderid <> 'Order ID';
+
+-- What was the average quantity of products purchased per account in February?
+Select sum(quantity)/count(cust.acctnum) As average_quatity
+From Get_Data.FebSales Feb
+Left Join Get_Data.customers cust
+On FEB.orderid=cust.order_id
+Where length(orderid) = 6 
+And orderid <> 'Order ID';
+
+-- Which product brought in the most revenue in January and how much revenue did it bring in total?
+Select product, Round(Sum(price*quantity), 2) total_revenue
+From Get_Data.JanSales
+Group by product
+Order by total_revenue desc 
+Limit 1;
