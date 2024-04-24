@@ -1,0 +1,43 @@
+-- For this project, I downloaded Spotify data from Kaggle.
+-- Then I created a table to insert Spotify data into.
+-- Finally, I performed analytics on the data using SQL. 
+
+-- Create a new table within Get_Data database.
+CREATE TABLE Get_Data.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL );
+
+-- See what data is in table after importing the file to input data into the table created. 
+SELECT * FROM Get_Data.Spotifydata;
+
+-- Determine the avg popularity, danceability, and energy by artist and track. 
+Select
+artist_name
+,track_name
+,avg(popularity)
+,avg(danceability)
+,avg(energy)
+From Get_Data.spotifydata
+Group by artist_name, track_name;
+
+-- Determine who the Top 10 artists are by popularity
+Select track_name, artist_name, popularity
+From Get_Data.spotifydata
+Order by popularity desc
+Limit 10;
